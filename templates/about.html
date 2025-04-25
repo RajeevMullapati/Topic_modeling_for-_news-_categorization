@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About NewsTopic AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        /* Reuse the same styles from index.html */
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 4px solid var(--primary);
+        }
+
+        .member-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: #6b7280;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo">About <span>NewsTopic</span> AI</h1>
+            <p class="tagline">The most advanced news classification system in the world</p>
+        </header>
+
+        <div class="card animate__animated animate__fadeIn">
+            <h2 class="card-title"><i class="fas fa-info-circle"></i> Our Technology</h2>
+            <p>NewsTopic AI leverages cutting-edge machine learning algorithms to analyze and categorize news content with unprecedented accuracy. Our system combines natural language processing (NLP) with deep learning techniques to understand context, sentiment, and thematic elements in news articles.</p>
+            <p>The model has been trained on millions of news articles across dozens of categories, achieving state-of-the-art performance in benchmark tests. Our technology is continuously updated to adapt to evolving language patterns and emerging news topics.</p>
+
+            <a href="/" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i> Back to Classifier
+            </a>
+        </div>
+
+        <div class="card animate__animated animate__fadeIn">
+            <h2 class="card-title"><i class="fas fa-trophy"></i> Awards & Recognition</h2>
+            <p>NewsTopic AI has been recognized by industry leaders and academic institutions for its innovative approach to news classification:</p>
+            <ul style="margin-left: 2rem; margin-top: 1rem;">
+                <li>2023 Best AI Application Award - AI Innovation Summit</li>
+                <li>Gold Medal for NLP Excellence - International ML Conference</li>
+                <li>Top 10 Disruptive Technologies - TechCrunch</li>
+                <li>Research Paper Published in Nature Machine Intelligence</li>
+            </ul>
+        </div>
+
+        <h2 style="margin-top: 3rem; text-align: center; color: var(--primary);">Our Team</h2>
+
+        <div class="team">
+            <div class="team-member animate__animated animate__fadeInUp">
+                <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Team Member" class="member-photo">
+                <h3 class="member-name">Dr. Sarah Chen</h3>
+                <p class="member-role">Chief AI Scientist</p>
+                <p>PhD in Machine Learning from Stanford. Former lead researcher at Google AI.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <div class="team-member animate__animated animate__fadeInUp animate__delay-1s">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member" class="member-photo">
+                <h3 class="member-name">James Rodriguez</h3>
+                <p class="member-role">Lead Engineer</p>
+                <p>Specialist in NLP systems. Built classification models for Fortune 500 companies.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <div class="team-member animate__animated animate__fadeInUp animate__delay-2s">
+                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Team Member" class="member-photo">
+                <h3 class="member-name">Priya Patel</h3>
+                <p class="member-role">Data Science Lead</p>
+                <p>Expert in large-scale data processing and model optimization.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2023 NewsTopic AI. All rights reserved.</p>
+            <p>Transforming how the world understands news content.</p>
+        </footer>
+    </div>
+</body>
+</html>

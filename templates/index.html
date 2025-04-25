@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsTopic AI - Advanced News Classification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+        }
+
+        .award-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: linear-gradient(45deg, #ffd700, #ffcc00);
+            color: #8a6d3b;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 150px;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .file-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            border: 2px dashed #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        .file-upload i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .file-upload input {
+            display: none;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .result-container {
+            display: none;
+            margin-top: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-card {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-icon {
+            font-size: 2.5rem;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .result-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-content p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(67, 97, 238, 0.2);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: var(--danger);
+            background-color: rgba(239, 68, 68, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .award-badge {
+                position: static;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="award-badge animate__animated animate__tada animate__infinite">
+                <i class="fas fa-award"></i> Best AI Classifier 2025
+            </div>
+            <h1 class="logo">News<span>Topic</span> AI</h1>
+            <p class="tagline">Advanced machine learning for precise news categorization</p>
+        </header>
+
+        <div class="card animate__animated animate__fadeIn">
+            <h2 class="card-title"><i class="fas fa-newspaper"></i> News Classifier</h2>
+
+            <div class="error-message" id="errorMessage"></div>
+
+            <form id="classifierForm">
+                <div class="form-group">
+                    <label for="newsText">Enter your news content:</label>
+                    <textarea id="newsText" name="news" placeholder="Paste news article here..."></textarea>
+                </div>
+
+                <div class="file-upload" id="fileUpload">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Or upload a text file (TXT, PDF, DOCX)</p>
+                    <input type="file" id="fileInput" name="file" accept=".txt,.pdf,.docx">
+                </div>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Analyzing content...</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Classify News
+                </button>
+            </form>
+
+            <div class="result-container" id="resultContainer">
+                <div class="result-card" id="resultCard">
+                    <div class="result-icon">
+                        <i id="resultIcon"></i>
+                    </div>
+                    <div class="result-content">
+                        <h3 id="resultTopic"></h3>
+                        <p id="resultTimestamp"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card animate__animated animate__fadeInUp">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="feature-title">Advanced AI Model</h3>
+                <p class="feature-desc">Our state-of-the-art machine learning model accurately classifies news into specific categories with industry-leading precision.</p>
+            </div>
+
+            <div class="feature-card animate__animated animate__fadeInUp animate__delay-1s">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="feature-title">Lightning Fast</h3>
+                <p class="feature-desc">Get instant results with our optimized processing pipeline that analyzes content in milliseconds.</p>
+            </div>
+
+            <div class="feature-card animate__animated animate__fadeInUp animate__delay-2s">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="feature-title">Privacy Focused</h3>
+                <p class="feature-desc">Your data is processed securely and never stored permanently. We respect your privacy.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2023 NewsTopic AI. All rights reserved.</p>
+            <p>Powered by cutting-edge machine learning technologies.</p>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // File upload interaction
+            $('#fileUpload').click(function() {
+                $('#fileInput').click();
+            });
+
+            $('#fileInput').change(function() {
+                if (this.files.length > 0) {
+                    const fileName = this.files[0].name;
+                    $('#fileUpload i').removeClass('fa-cloud-upload-alt').addClass('fa-file-alt');
+                    $('#fileUpload p').text(fileName);
+                }
+            });
+
+            // Form submission
+            $('#classifierForm').submit(function(e) {
+                e.preventDefault();
+
+                // Reset UI
+                $('#errorMessage').hide();
+                $('#resultContainer').hide();
+                $('#loading').show();
+
+                const formData = new FormData();
+                const newsText = $('#newsText').val();
+                const fileInput = $('#fileInput')[0].files[0];
+
+                if (newsText) {
+                    formData.append('news', newsText);
+                } else if (fileInput) {
+                    formData.append('file', fileInput);
+                } else {
+                    showError('Please enter news text or upload a file');
+                    $('#loading').hide();
+                    return;
+                }
+
+                // AJAX request
+                $.ajax({
+                    url: '/',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $('#loading').hide();
+
+                        // Display results
+                        $('#resultIcon').removeClass().addClass('fas fa-' + response.icon);
+                        $('#resultTopic').text(response.topic);
+                        $('#resultTimestamp').text('Analyzed at: ' + response.timestamp);
+                        $('#resultCard').css('background-color', response.color);
+                        $('#resultContainer').show();
+
+                        // Animate result
+                        $('#resultContainer').addClass('animate__animated animate__fadeInUp');
+
+                        // Reset file upload
+                        $('#fileInput').val('');
+                        $('#fileUpload i').removeClass('fa-file-alt').addClass('fa-cloud-upload-alt');
+                        $('#fileUpload p').text('Or upload a text file (TXT, PDF, DOCX)');
+                    },
+                    error: function(xhr) {
+                        $('#loading').hide();
+                        showError(xhr.responseJSON?.error || 'An error occurred during classification');
+                    }
+                });
+            });
+
+            function showError(message) {
+                $('#errorMessage').text(message).show().addClass('animate__animated animate__headShake');
+                setTimeout(() => {
+                    $('#errorMessage').removeClass('animate__animated animate__headShake');
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
